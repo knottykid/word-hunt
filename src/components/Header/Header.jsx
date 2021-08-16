@@ -1,20 +1,16 @@
-import {
-  createMuiTheme,
-  MenuItem,
-  TextField,
-  ThemeProvider,
-} from "@material-ui/core";
+import { createTheme } from "@material-ui/core/styles";
+import { MenuItem, TextField, ThemeProvider } from "@material-ui/core";
 import React from "react";
 import "./Header.css";
 import categories from "../../data/category";
 
-const Header = ({ category, setCategory, word, setWord }) => {
-  const darkTheme = createMuiTheme({
+const Header = ({ category, setCategory, word, setWord, lightMode }) => {
+  const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main: lightMode ? "#000" : "#fff",
       },
-      type: "dark",
+      type: lightMode ? "light" : "dark",
     },
   });
 
@@ -29,8 +25,8 @@ const Header = ({ category, setCategory, word, setWord }) => {
         <ThemeProvider theme={darkTheme}>
           <TextField
             className="search"
-            id="standard-basic"
-            label="Search a Word"
+            id="filled-basic"
+            label="Search"
             value={word}
             onChange={(e) => setWord(e.target.value)}
           />
@@ -39,7 +35,7 @@ const Header = ({ category, setCategory, word, setWord }) => {
             select
             label="Language"
             value={category}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => handleChange(e)}
           >
             {" "}
             {categories.map((option) => (
