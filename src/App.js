@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
 import Header from "./components/Header/Header";
+import Definitions from "./components/Definitions/Definitions";
 
 function App() {
   const [word, setWord] = useState("");
@@ -41,6 +42,9 @@ function App() {
           category={category}
           setCategory={setCategory}
         />
+        {meaning && (
+          <Definitions word={word} meaning={meaning} category={category} />
+        )}
       </Container>
     </div>
   );
