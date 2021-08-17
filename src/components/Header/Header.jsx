@@ -3,8 +3,16 @@ import { MenuItem, TextField, ThemeProvider } from "@material-ui/core";
 import React from "react";
 import "./Header.css";
 import categories from "../../data/category";
+import { debounce } from "lodash";
 
-const Header = ({ category, setCategory, word, setWord, lightMode }) => {
+const Header = ({
+  category,
+  setCategory,
+  word,
+  setWord,
+  lightMode,
+  setMeaning,
+}) => {
   const darkTheme = createTheme({
     palette: {
       primary: {
@@ -14,10 +22,15 @@ const Header = ({ category, setCategory, word, setWord, lightMode }) => {
     },
   });
 
-  const handleChange = (language) => {
-    setCategory(language);
+  const handleChange = (e) => {
+    setCategory(e.target.value);
     setWord("");
+    setMeaning([]);
   };
+  const handleText = debounce((text) => {
+    setWord(text);
+  }, 500);
+
   return (
     <div className="header">
       <span className="title">{word ? word : "Word Hunt"}</span>
@@ -28,6 +41,7 @@ const Header = ({ category, setCategory, word, setWord, lightMode }) => {
             id="filled-basic"
             label="Search"
             value={word}
+            // onChange={(e) => handleText(e.target.value)}
             onChange={(e) => setWord(e.target.value)}
           />
           <TextField
@@ -38,8 +52,8 @@ const Header = ({ category, setCategory, word, setWord, lightMode }) => {
             onChange={(e) => handleChange(e)}
           >
             {" "}
-            {categories.map((option) => (
-              <MenuItem key={option.label} value={option.label}>
+            {categories?.map((option) => (
+              <MenuItem key={option?.label} value={option?.label}>
                 {option.value}
               </MenuItem>
             ))}

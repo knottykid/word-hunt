@@ -40,6 +40,7 @@ function App() {
   console.log(meaning);
   useEffect(() => {
     dictionaryApi();
+    // eslint-disable-next-line
   }, [word, category]);
 
   return (
@@ -76,6 +77,7 @@ function App() {
           category={category}
           setCategory={setCategory}
           lightMode={lightMode}
+          setMeaning={setMeaning}
         />
         {meaning && (
           <Definitions
